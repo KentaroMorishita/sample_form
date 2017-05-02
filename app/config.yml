@@ -1,0 +1,5 @@
+DB:
+    host: mysql
+    username: root
+    password: mysql
+    dbname: exampledb
