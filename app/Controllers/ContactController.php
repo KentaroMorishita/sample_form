@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\Controller;
 use App\Models\Contact;
+use App\Libs\Csrf;
 
 class ContactController extends Controller
 {
@@ -61,7 +62,8 @@ class ContactController extends Controller
 	public function create()
 	{
 		$post = $this->post();
-		if ($this->method === self::REQUEST_POST) {
+		if ($this->method === self::REQUEST_POST && Csrf::checkToken($post['token'])) {
+			unset($post['token']);
 			if ($this->validate($post)) {
 				$this->store($post);
 			}
@@ -82,7 +84,8 @@ class ContactController extends Controller
 				->find_one($get['id']);
 
 		$post = $this->post();
-		if ($this->method === self::REQUEST_POST) {
+		if ($this->method === self::REQUEST_POST && Csrf::checkToken($post['token'])) {
+			unset($post['token']);
 			if ($this->validate($post)) {
 				$this->update($get['id'], $post);
 			}

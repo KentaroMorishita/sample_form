@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use Twig_Loader_Filesystem;
 use Twig_Environment;
+use Twig_SimpleFunction;
+use App\Libs\Csrf;
 
 class Controller
 {
@@ -25,6 +27,9 @@ class Controller
 			'cache' => ROOT_PATH . '/cache/',
 			'debug' => true
 		]);
+		$this->view->addFunction(new Twig_SimpleFunction('Csrf', function($method) {
+			return Csrf::$method();
+		}));
 
 		\App\Libs\DB::connect();
 	}

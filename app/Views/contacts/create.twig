@@ -59,6 +59,7 @@
 								{% endif %}
 							</div>
 							<div class="col-sm-12 text-center">
+								<input type="hidden" name="token" value="{{Csrf('getToken')}}">
 								<button type="submit" class="btn btn-primary">Submit</button>
 							</div>
 						</div>
