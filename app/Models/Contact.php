@@ -2,13 +2,10 @@
 
 namespace App\Models;
 
-use App\Model\Model;
-
-class Contact extends Model
+class Contact extends \Model
 {
 
-	
-
-
+	public static $_id_column = 'id';
+	public static $_table = 'question';
 
 }

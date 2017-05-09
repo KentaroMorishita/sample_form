@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+session_start();
+
 define('DS', DIRECTORY_SEPARATOR);
 
 define('APP_ENV', 'development');

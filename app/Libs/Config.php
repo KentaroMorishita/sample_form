@@ -7,6 +7,11 @@ use Symfony\Component\Yaml\Parser;
 class Config
 {
 
+	/**
+	 *
+	 * @param type $route
+	 * @return type
+	 */
 	public static function get($route)
 	{
 		$parser = new Parser();
