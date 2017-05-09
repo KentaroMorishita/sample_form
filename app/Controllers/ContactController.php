@@ -8,6 +8,20 @@ use App\Models\Contact;
 class ContactController extends Controller
 {
 
+	protected $_errors = [];
+	protected $_rules = [
+		'name' => 'required|string',
+		'email' => 'required|string|email',
+		'gender' => 'required',
+		'title' => 'required|string',
+		'content' => 'required|string'
+	];
+	protected $_error_messages = [
+		'required' => ':key is required.',
+		'string' => ':key is not string.',
+		'email' => ':key is invalid email address.',
+	];
+
 	/**
 	 *
 	 */
@@ -46,14 +60,15 @@ class ContactController extends Controller
 	 */
 	public function create()
 	{
+		$post = $this->post();
 		if ($this->method === self::REQUEST_POST) {
-			$post = $this->post();
 			if ($this->validate($post)) {
 				$this->store($post);
 			}
 		}
 
-		return $this->view('contacts/create.twig');
+		$errors = $this->_errors;
+		return $this->view('contacts/create.twig', compact('post', 'errors'));
 	}
 
 	/**
@@ -75,8 +90,41 @@ class ContactController extends Controller
 	 */
 	protected function validate($data)
 	{
-		// TODO validation
-		return true;
+		$validations = self::getValidations();
+
+		foreach ($this->_rules as $key => $rules_string) {
+			$rules = explode('|', $rules_string);
+			foreach ($rules as $rule) {
+				$option = ['options' => $validations[$rule]];
+				$valid = filter_var($data[$key], FILTER_CALLBACK, $option);
+				if (!$valid) {
+					$msg = $this->_error_messages[$rule];
+					$this->_errors[$key] = str_replace(':key', ucfirst($key), $msg);
+					break;
+				}
+			}
+		}
+
+		return empty($this->_errors);
+	}
+
+	/**
+	 *
+	 * @return type
+	 */
+	protected static function getValidations()
+	{
+		return [
+			'required' => function($val) {
+				return !empty($val);
+			},
+			'string' => function($val) {
+				return is_string($val);
+			},
+			'email' => function($val) {
+				return filter_var($val, FILTER_VALIDATE_EMAIL) ? true : false;
+			},
+		];
 	}
 
 	/**
