@@ -77,10 +77,20 @@ class ContactController extends Controller
 	 */
 	public function edit()
 	{
+		$get = $this->get();
 		$contact = Contact::factory(Contact::class)
-				->find_one($this->get['id']);
+				->find_one($get['id']);
 
-		return $this->view('contacts/edit.twig', compact('contact'));
+		$post = $this->post();
+		if ($this->method === self::REQUEST_POST) {
+			if ($this->validate($post)) {
+				$this->update($get['id'], $post);
+			}
+		}
+
+		$errors = $this->_errors;
+		$data = compact('contact', 'post', 'errors');
+		return $this->view('contacts/edit.twig', $data);
 	}
 
 	/**
@@ -142,9 +152,12 @@ class ContactController extends Controller
 	 *
 	 * @param type $id
 	 */
-	protected function update($id)
+	protected function update($id, $data)
 	{
-
+		$contact = Contact::factory(Contact::class)
+				->find_one($id);
+		$contact->set($data)->save();
+		return $this->redirect('contact', 'index');
 	}
 
 }
