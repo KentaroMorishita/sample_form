@@ -14,8 +14,11 @@ define('CONTROLLER_PATH', realpath(APP_PATH . DS . 'Controllers'));
 define('MODEL_PATH', realpath(APP_PATH . DS . 'Models'));
 define('VIEW_PATH', realpath(APP_PATH . DS . 'Views'));
 
+define('HOME_URL', 'contact/index');
+
 try {
-	list($controller, $action) = explode(DS, filter_input(INPUT_GET, 'p'));
+	$uri = ltrim(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL), DS);
+	list($controller, $action) = explode(DS, parse_url($uri)['path'] ?: HOME_URL);
 
 	$controller = "\\App\\Controllers\\" . $controller . 'Controller';
 	$controller_instance = new $controller();

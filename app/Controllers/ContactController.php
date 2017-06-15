@@ -148,7 +148,7 @@ class ContactController extends Controller
 	{
 		$contact = Contact::factory(Contact::class)->create();
 		$contact->set($data)->save();
-		return $this->redirect('contact', 'index');
+		return $this->redirect('/');
 	}
 
 	/**
@@ -160,7 +160,7 @@ class ContactController extends Controller
 		$contact = Contact::factory(Contact::class)
 				->find_one($id);
 		$contact->set($data)->save();
-		return $this->redirect('contact', 'index');
+		return $this->redirect('/');
 	}
 
 }

@@ -68,12 +68,14 @@ class Controller
 
 	/**
 	 *
-	 * @param type $controller
-	 * @param type $action
+	 * @param type $path
 	 */
-	protected function redirect($controller, $action)
+	protected function redirect($path)
 	{
-		header("location:./?p={$controller}/{$action}");
+		$protocol = empty(filter_input(INPUT_SERVER, 'HTTPS')) ? 'http://' : 'https://';
+
+		$host = filter_input(INPUT_SERVER, 'HTTP_HOST');
+		header("location:{$protocol}{$host}{$path}");
 		exit;
 	}
 
