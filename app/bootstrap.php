@@ -17,16 +17,16 @@ define('VIEW_PATH', realpath(APP_PATH . DS . 'Views'));
 define('HOME_URL', 'contact/index');
 
 try {
-	$uri = ltrim(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL), DS);
-	list($controller, $action) = explode(DS, parse_url($uri)['path'] ?: HOME_URL);
+    $uri = ltrim(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL), DS);
+    list($controller, $action) = explode(DS, parse_url($uri)['path'] ?: HOME_URL);
 
-	$controller = "\\App\\Controllers\\" . $controller . 'Controller';
-	$controller_instance = new $controller();
-	$controller_instance->$action();
+    $controller = "\\App\\Controllers\\" . $controller . 'Controller';
+    $controller_instance = new $controller();
+    $controller_instance->$action();
 } catch (Throwable $e) {
-	if (APP_ENV === 'development') {
-		print("<pre>{$e}</pre>");
-	}
-	exit;
+    if (APP_ENV === 'development') {
+        print("<pre>{$e}</pre>");
+    }
+    exit;
 }
 

@@ -2,71 +2,71 @@
 {% block title %}コンタクト{% endblock %}
 {% block content %}
 
-	<div class="row">
-		<div class="col-md-10">
-			<div class="card">
-				<div class="card-block">
-					<form action="" method="post">
-						<div class="form-group row">
-							<label class="col-sm-2 col-form-label">Name</label>
-							<div class="col-sm-10">
-								<input class="form-control" type="text" name="name" value="{{ post.name ?: contact.name }}">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-2 col-form-label">Email</label>
-							<div class="col-sm-10">
-								<input class="form-control" type="text" name="email" value="{{ post.email ?: contact.email }}">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-2 col-form-label">Gender</label>
-							<div class="col-sm-10">
-								<div class="form-check">
-									<label class="form-check-label">
-										<input class="form-check-input" type="radio" name="gender" id="genderRadio1" value="Male" {% if post.gender == 'Male' or contact.gender == 'Male' %}checked{% endif %}>
-										Male
-									</label>
-								</div>
-								<div class="form-check">
-									<label class="form-check-label">
-										<input class="form-check-input" type="radio" name="gender" id="genderRadio2" value="Female" {% if post.gender == 'Female' or contact.gender == 'Female'%}checked{% endif %}>
-										Female
-									</label>
-								</div>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-2 col-form-label">Title</label>
-							<div class="col-sm-10">
-								<input class="form-control" type="text" name="title" value="{{ post.title ?: contact.title }}">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-2 col-form-label">Content</label>
-							<div class="col-sm-10">
-								<textarea class="form-control" type="text" name="content">{{post.content ?: contact.content|e}}</textarea>
-							</div>
-						</div>
-						<div class="form-group row">
-							<div class="col-sm-12">
-								{% if errors %}
-									<div class="alert alert-danger">
-										{% for error in errors %}
-											<p>{{error}}</p>
-										{% endfor %}
-									</div>
-								{% endif %}
-							</div>
-							<div class="col-sm-12 text-center">
-								<input type="hidden" name="token" value="{{Csrf('getToken')}}">
-								<button type="submit" class="btn btn-primary">Submit</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-block">
+                    <form action="" method="post">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" name="name" value="{{ post.name ?: contact.name }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" name="email" value="{{ post.email ?: contact.email }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Gender</label>
+                            <div class="col-sm-10">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="gender" id="genderRadio1" value="Male" {% if post.gender == 'Male' or contact.gender == 'Male' %}checked{% endif %}>
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="gender" id="genderRadio2" value="Female" {% if post.gender == 'Female' or contact.gender == 'Female' %}checked{% endif %}>
+                                        Female
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Title</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" name="title" value="{{ post.title ?: contact.title }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Content</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" type="text" name="content">{{ post.content ?: contact.content|e }}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                {% if errors %}
+                                    <div class="alert alert-danger">
+                                        {% for error in errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-12 text-center">
+                                <input type="hidden" name="token" value="{{ Csrf('getToken') }}">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock content %}
