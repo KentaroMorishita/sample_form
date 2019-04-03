@@ -6,6 +6,6 @@ class Contact extends \Model
 {
 
 	public static $_id_column = 'id';
-	public static $_table = 'question';
+	public static $_table = 'contacts';
 
 }
